@@ -8,5 +8,5 @@
   },
   "scripts": {
     "start": "web-dev-server --config web-dev-server.config.mjs"
-  }  
+  }
 }

@@ -5,8 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Calendar</title>
     <script type="module" src="./src/calendar-component.js"></script>
+    <script type="module" src="./src/calendar-component2.js"></script>
 </head>
 <body>
     <calendar-component></calendar-component>
+    <calendar-component2></calendar-component2>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarComponent = document.querySelector('calendar-component');
+            const events = [
+                { name: 'Meeting', time: '14:00', date: '2024-04-05' },
+                { name: 'Dentist', time: '09:00', date: '2024-04-12' },
+                { name: 'Meeting', time: '14:00', date: '2024-04-22' },
+                { name: 'Dentist', time: '09:00', date: '2024-04-23' },
+                { name: 'Meeting', time: '14:00', date: '2024-04-23' },
+                { name: 'Dentist', time: '09:00', date: '2024-04-26' },
+                { name: 'Meeting', time: '14:00', date: '2024-04-26' },
+                { name: 'Dentist', time: '09:00', date: '2024-04-27' },
+            ];
+            calendarComponent.events = events;
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const calendarComponent = document.querySelector('calendar-component2');
+        const events = [
+            { name: 'Meeting', time: '14:00', date: '2024-04-22' },
+            { name: 'Dentist', time: '09:00', date: '2024-04-23' },
+            { name: 'Meeting', time: '14:00', date: '2024-04-23' },
+            { name: 'Dentist', time: '09:00', date: '2024-04-26' },
+            { name: 'Meeting', time: '14:00', date: '2024-04-26' },
+            { name: 'Dentist', time: '09:00', date: '2024-04-27' },
+        ];
+        calendarComponent.events = events;
+    });
+</script>
 </body>
 </html>

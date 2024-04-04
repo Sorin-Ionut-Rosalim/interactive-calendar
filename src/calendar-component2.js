@@ -1,39 +1,92 @@
 import { LitElement, html, css } from 'lit';
 
 class CalendarComponent extends LitElement {
+
     static styles = css`
-    :host {
-        --primary-color: #0078d7;
-        --accent-color: #ffeded;
-        --text-color: black;
-        display: block;
-        max-width: 350px;
-        margin: 0 auto;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .calendar-header button {
-        background-color: var(--primary-color);
-        color: white;
-        /* other styles */
-    }
-    .day.today {
-        background-color: var(--primary-color);
-        color: white;
-    }
-    .event {
-        background-color: var(--accent-color);
-        color: var(--text-color);
-        /* other styles */
-    }
-    /* other styles */
-`;
+        :host {
+            display: block;
+            max-width: 350px;
+            margin: 0 auto;h
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .calendar-header button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calendar-header button:hover {
+            background-color: #0056b3;
+        }
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            padding: 5px 0;
+        }
+        .weekday {
+            font-weight: bold;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 5px;
+            text-align: center;
+        }
+        .day {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            position: relative; /* Needed to position the popup absolutely within the day */
+        }
+        .events-popup {
+            display: none;
+            position: absolute;
+            left: 100%; /* Adjust as necessary to position the popup */
+            top: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 2;
+            white-space: nowrap; /* Prevents the text from wrapping */
+            border-radius: 5px;
+            font-size: 2em;
+        }
+        .day:hover .events-popup {
+            display: block; /* Show the popup on hover */
+        }
+        .day.few-events { /* 0-1 events */
+            background-color: green;
+        }
+        .day.some-events { /* 2-3 events */
+            background-color: yellow;
+        }
+        .day.many-events { /* 4+ events */
+            background-color: red;
+        }
+        .day.today {
+            background-color: #0078d7;
+            color: white;
+            font-weight: bold;
+        }
+        .empty {
+            background-color: transparent;
+        }
+    `;
 
     static get properties() {
         return {
             currentDate: { type: Object },
             primaryColor: { type: String },
-            accentColor: { type: String },
-            events: { type: Array }
+            accentColor: { type: String }
         };
     }
     
@@ -75,8 +128,8 @@ class CalendarComponent extends LitElement {
         const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1).getDay();
         const numOfDays = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
         const today = new Date().getDate();
-        const currentMonth = this.currentDate.getMonth();
-        const currentYear = this.currentDate.getFullYear();
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
     
         for (let i = 0; i < firstDay; i++) {
             days.push(html`<div class="day empty"></div>`);
@@ -86,25 +139,26 @@ class CalendarComponent extends LitElement {
             const date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), day);
             const dateString = date.toISOString().slice(0, 10);
             let eventsToday = this.events.filter(event => event.date === dateString);
-
             // Sort events by time
             eventsToday = eventsToday.sort((a, b) => {
                 const timeA = a.time ? a.time.split(':').map(Number) : [0, 0];
                 const timeB = b.time ? b.time.split(':').map(Number) : [0, 0];
                 return timeA[0] * 60 + timeA[1] - (timeB[0] * 60 + timeB[1]);
             });
-
+            
+            const eventCount = eventsToday.length;
+            const eventClass = eventCount <= 1 ? 'few-events' : eventCount <= 3 ? 'some-events' : 'many-events';
             const isToday = day === today && this.currentDate.getMonth() === currentMonth && this.currentDate.getFullYear() === currentYear;
-        
+    
             days.push(html`
-                <div class="day ${isToday ? 'today' : ''}" @click="${() => this.showEventInput(date)}">
+                <div class="day ${isToday ? 'today' : ''} ${eventClass}" @click="${() => this.showEventInput(date)}">
                     <span class="date-number">${day}</span>
-                    <div class="events">
-                        ${eventsToday.map(event => html`
-                        <div class="event" @click="${(e) => this.deleteEvent(e, event)}">
-                            ${event.time} - ${event.name}
-                            <span class="delete-event">&#x274C;</span>
-                        </div>`)}
+                    <div class="events-popup">
+                        ${eventsToday.map((event) => html`
+                            <div class="event" @click="${(e) => this.deleteEvent(e, event, dateString)}">
+                                ${event.time} - ${event.name}
+                                <span class="delete-event">&#x274C;</span>
+                            </div>`)}
                     </div>
                 </div>`);
         }
@@ -154,4 +208,4 @@ class CalendarComponent extends LitElement {
     
 }
 
-customElements.define('calendar-component', CalendarComponent);
+customElements.define('calendar-component2', CalendarComponent);
