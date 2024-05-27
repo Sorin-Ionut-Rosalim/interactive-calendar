@@ -66,13 +66,13 @@ In the index.html are two examples of usages of calendar-component:
 1. ![alt text](component2.png)
 2. ![alt text](component.png)
 
-## Contributing
-
 ## GitHub Pages
 
 You can access one of the components hosted on GitHub Pages at the following link:
 
 [Interactive Calendar Component](https://sorin-ionut-rosalim.github.io/interactive-calendar/)
+
+## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
 
