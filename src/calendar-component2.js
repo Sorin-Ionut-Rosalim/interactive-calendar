@@ -74,7 +74,7 @@ class CalendarComponent extends LitElement {
         }
         .day.today {
             background-color: #0078d7;
-            color: white;
+            color: black;
             font-weight: bold;
         }
         .empty {

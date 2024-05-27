@@ -61,23 +61,10 @@ This will generate the necessary files in the dist directory.
 
 ## Usage
 
-Here are some examples of how to use the Interactive-Calendar component:
+In the index.html are two examples of usages of calendar-component:
 
-```javascript
-import InteractiveCalendar from "./path-to-component/InteractiveCalendar";
-
-const events = [
-  { name: "Meeting", time: "14:00", date: "2024-04-05" },
-  { name: "Dentist", time: "09:00", date: "2024-04-12" },
-];
-
-const calendar = new InteractiveCalendar({
-  container: document.getElementById("calendar-container"),
-  events: events,
-});
-
-calendar.render();
-```
+1. ![alt text](component2.png)
+2. ![alt text](component.png)
 
 ## Contributing
 
