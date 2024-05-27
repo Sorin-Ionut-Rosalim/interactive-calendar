@@ -144,7 +144,7 @@ class nt extends A{constructor(){super(...arguments),this.renderOptions={host:th
         }
         .day.today {
             background-color: #0078d7;
-            color: white;
+            color: black;
             font-weight: bold;
         }
         .empty {
