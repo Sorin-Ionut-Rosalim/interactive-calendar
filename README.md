@@ -68,6 +68,12 @@ In the index.html are two examples of usages of calendar-component:
 
 ## Contributing
 
+## GitHub Pages
+
+You can access one of the components hosted on GitHub Pages at the following link:
+
+[Interactive Calendar Component](https://sorin-ionut-rosalim.github.io/interactive-calendar/)
+
 Contributions are welcome! Please follow these steps to contribute:
 
 1. Fork the repository.
